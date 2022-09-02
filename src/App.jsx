@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ChannelDetail, Feed, Navbar, SearchFeed, VideoDetail } from "./components";
 
 function App() {
-  return (
+  return (<div className="home">
+
     <BrowserRouter>
       <Box sx={{ backgroundColor: "black", minHeight: "100vh" }}>
     <Navbar/>
@@ -16,6 +17,7 @@ function App() {
         </Routes>
       </Box>
     </BrowserRouter>
+  </div>
   );
 }
 

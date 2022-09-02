@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import { Box, CardContent, CardMedia, Typography } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { Link } from 'react-router-dom';
+import { demoProfilePicture } from '../utils/constants';
 
-export default function ChannelCard({ channelDetail, marginTop }) {
-  return (
-    <Box
+const ChannelCard = ({ channelDetail, marginTop }) => (
+  <Box
     sx={{
       boxShadow: 'none',
       borderRadius: '20px',
@@ -34,5 +37,6 @@ export default function ChannelCard({ channelDetail, marginTop }) {
       </CardContent>
     </Link>
   </Box>
-  )
-}
+);
+
+export default ChannelCard;

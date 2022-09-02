@@ -1,10 +1,13 @@
-import { Box, Stack } from '@mui/material';
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom';
-import { fetchFromAPI } from '../utils/fetchAPi';
-import Loader from './Loader';
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import ReactPlayer from "react-player";
+import { Typography, Box, Stack } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-export default function VideoDetail() {
+import { Videos, Loader } from "./";
+import { fetchFromAPI } from "../utils/fetchFromAPI";
+
+const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
   const { id } = useParams();
@@ -53,5 +56,7 @@ export default function VideoDetail() {
         </Box>
       </Stack>
     </Box>
-  )
-}
+  );
+};
+
+export default VideoDetail;

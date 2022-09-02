@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Box } from "@mui/material";
 
-export default function ChannelDetail() {
+import { Videos, ChannelCard } from "./";
+import { fetchFromAPI } from "../utils/fetchFromAPI";
+
+const ChannelDetail = () => {
   const [channelDetail, setChannelDetail] = useState();
   const [videos, setVideos] = useState(null);
 
@@ -35,5 +40,7 @@ export default function ChannelDetail() {
         <Videos videos={videos} />
       </Box>
     </Box>
-  )
-}
+  );
+};
+
+export default ChannelDetail;

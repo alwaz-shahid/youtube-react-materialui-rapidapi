@@ -5,6 +5,7 @@ body {
   box-sizing: border-box;
   -ms-overflow-style: none; /* IE 11 */
   scrollbar-width: none; /* Firefox 64 */
+  background-color: #00272B;
 }
 
 a {
@@ -37,9 +38,13 @@ a {
   scrollbar-width: none; /* Firefox 64 */
 }
 .category-btn:hover {
-  background-color: #FC1503 !important;
+  background-color: rgb(4 146 255) !important;
   color: white !important;
 }
+/* .category-btn:hover {
+  background-color: #FC1503 !important;
+  color: white !important;
+} */
 
 .category-btn:hover span{
   color: white !important;
@@ -53,7 +58,7 @@ a {
 .search-bar{
   border:none;
   outline:none;
-  width:350px;
+  width:250px;
 }
 
 .category-btn{
@@ -104,6 +109,7 @@ a {
   height:100vh;
   width:100%;
   max-width: 1800px;
+  margin: 0 auto;
   /* background-color: #FC1503; */
   /* color: white; */
   /* font-size: 50px; */

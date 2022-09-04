@@ -7,7 +7,7 @@ function App() {
   return (<div className="home">
 
     <BrowserRouter>
-      <Box sx={{ backgroundColor: "black", minHeight: "100vh" }}>
+      <Box sx={{ backgroundColor: "#00272B", minHeight: "100vh" }}>
     <Navbar/>
         <Routes>
           <Route path="/" exact element={<Feed />} />

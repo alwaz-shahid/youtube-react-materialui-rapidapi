@@ -12,7 +12,7 @@
 > Make your project SEO friendly with Next-Seo.
 > Your mail has to be in the filter list to work with this demo app.
 
- Here you can find live [Preview]([http://example.net/](https:/viomui.netlify.app/)) of the app. &copy; 2022
+ Here you can find live [Preview](https:/viomui.netlify.app/) of the app. &copy; 2022
 
 ## Commands
 ```

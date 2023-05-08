@@ -8,21 +8,47 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "keywords": [
+    "react",
+    "helmet",
+    "seo",
+    "search",
+    "engine",
+    "optimization",
+    "youtube api",
+    "youtube",
+    "material ui",
+    "mui",
+    "mui react",
+    "mui react components",
+    "mui react components library",
+    "Youtube Clone React",
+    "Youtube Clone React App",
+    "Youtube Clone React Application",
+    "Youtube Clone React Project",
+    "Youtube Clone React Template",
+    "Youtube Clone React Tutorial",
+    "Youtube Clone React Tutorial for Beginners"
+  ],
+  "contributors": [
+    "Alwaz Shahid <alwazdev@gmail.com> (https://github.com/amexjake)"
+  ],
   "dependencies": {
-    "@emotion/react": "^11.10.0",
-    "@emotion/styled": "^11.10.0",
-    "@mui/icons-material": "^5.10.2",
-    "@mui/material": "^5.10.2",
-    "axios": "^0.27.2",
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.3",
+    "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-player": "^2.10.1",
-    "react-router-dom": "^6.3.0"
+    "react-player": "^2.12.0",
+    "react-router-dom": "^6.11.1"
   },
   "devDependencies": {
-    "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6",
-    "@vitejs/plugin-react": "^2.0.1",
-    "vite": "^3.0.7"
+    "@types/react": "^18.2.5",
+    "@types/react-dom": "^18.2.3",
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.3.5",
+    "vite-plugin-pwa": "^0.14.7"
   }
 }

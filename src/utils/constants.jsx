@@ -13,20 +13,21 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import DeveloperModeIcon from "@mui/icons-material/DeveloperMode";
 
 export const logo = "/vite.svg";
-// export const logo = 'https://i.ibb.co/s9Qys2j/logo.png';
+
 export const categories = [
   { name: "New", icon: <HomeIcon /> },
-  // { name: 'JS Mastery', icon: <CodeIcon />, },
   { name: "Mern", icon: <CodeIcon /> },
   { name: "Coding", icon: <CodeIcon /> },
   { name: "ReactJS", icon: <CodeIcon /> },
   { name: "NextJS", icon: <CodeIcon /> },
-  { name: "FAst API", icon: <CodeIcon /> },
+  { name: "Fast API", icon: <CodeIcon /> },
+  { name: "Valorant", icon: <SportsEsportsIcon /> },
+  { name: "Fortnite", icon: <SportsEsportsIcon /> },
+  { name: "Gaming", icon: <SportsEsportsIcon /> },
   { name: "Music", icon: <MusicNoteIcon /> },
   { name: "Education", icon: <SchoolIcon /> },
   { name: "Podcast", icon: <GraphicEqIcon /> },
   { name: "Movie", icon: <OndemandVideoIcon /> },
-  { name: "Gaming", icon: <SportsEsportsIcon /> },
   { name: "Live", icon: <LiveTvIcon /> },
   { name: "Sport", icon: <FitnessCenterIcon /> },
   { name: "Fashion", icon: <CheckroomIcon /> },

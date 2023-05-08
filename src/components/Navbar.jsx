@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 import { logo } from '../utils/constants';
 import SearchBar from './SearchBar';
-// import SearchBar from './SearchBar';
-// import { SearchBar } from "./";
 
 const Navbar = () => (
   <Stack
@@ -20,6 +18,7 @@ const Navbar = () => (
     <Link to='/' style={{ display: 'flex', alignItems: 'center' }}>
       <img src={logo} alt='logo' height={35} />{' '}
     </Link>
+    {/* <SearchBar /> */}
     <SearchBar />
   </Stack>
 );

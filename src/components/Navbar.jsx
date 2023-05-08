@@ -1,17 +1,22 @@
+import React, { useState } from 'react';
 import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import { logo } from '../utils/constants';
-
+import { useNavigate } from 'react-router-dom';
+import { Paper, IconButton } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const onhandleSubmit = (e) => {
     e.preventDefault();
 
     if (searchTerm) {
-      history.push(`/search/${searchTerm}`);
+      navigate(`/search/${searchTerm}`);
+
+      // setSearchTerm('');
     }
   };
   return (
@@ -28,9 +33,11 @@ const Navbar = () => {
       <Link to='/' style={{ display: 'flex', alignItems: 'center' }}>
         <img src={logo} alt='logo' height={35} />{' '}
       </Link>
+
+      {/* SEATCHBART */}
       <Paper
         component='form'
-        onSubmit={handleSubmit}
+        onSubmit={onhandleSubmit}
         sx={{
           borderRadius: 20,
           border: '1px solid #e3e3e3',

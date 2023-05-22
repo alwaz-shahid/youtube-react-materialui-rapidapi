@@ -12,17 +12,17 @@ import Favorite from '@mui/icons-material/Favorite';
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
-  const [state, setState] = useState({ loop: false, liked: false });
+  const [cont, setCont] = useState({ loop: false, liked: false });
 
   const handleLoopToggle = () => {
-    setState((prevState) => ({
+    setCont((prevState) => ({
       ...prevState,
       loop: !prevState.loop, // Toggle the loop state
     }));
   };
 
   const handleLikedToggle = () => {
-    setState((prevState) => ({
+    setCont((prevState) => ({
       ...prevState,
       liked: !prevState.liked, // Toggle the liked state
     }));
@@ -58,6 +58,7 @@ const VideoDetail = () => {
               controls
               playing
               pip
+              loop={cont?.loop}
             />
             <Typography color='#fff' variant='h5' fontWeight='bold' p={2}>
               {title}
@@ -99,22 +100,22 @@ const VideoDetail = () => {
               px={2}>
               <IconButton
                 type='button'
-                sx={{ p: '5px', color: '#00272B' }}
+                sx={{ p: '5px', color: cont.liked ? '#0466c8' : '#fff' }}
                 aria-label='like song'
                 onClick={handleLikedToggle}>
-                <ThumbUpAltIcon color='primary' />
+                <ThumbUpAltIcon />
               </IconButton>
 
               <IconButton
                 type='button'
-                sx={{ p: '5px', color: '#00272B' }}
+                sx={{ p: '5px', color: cont.loop ? '#0466c8' : '#fff' }}
                 aria-label='repeat song'
                 onClick={handleLoopToggle}>
-                <RepeatIcon color='primary' />
+                <RepeatIcon />
               </IconButton>
               <IconButton
                 type='button'
-                sx={{ p: '5px', color: 'red' }}
+                sx={{ p: '5px', color: cont.loop ? '#fff' : '#e71d36' }}
                 aria-label='repeat song'>
                 <Favorite />
               </IconButton>

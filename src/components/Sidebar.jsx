@@ -13,6 +13,7 @@ export default function Sidebar({ setSelectedCategory, selectedCategory }) {
           md: '95%',
         },
         flexDirection: { md: 'column' },
+        bg: '#03071e',
       }}
       className='fc'>
       {categories.map((category, index) => (

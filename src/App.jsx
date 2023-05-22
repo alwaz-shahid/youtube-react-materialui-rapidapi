@@ -14,7 +14,7 @@ function App() {
     <MyContextProvider>
       <div className='home'>
         <BrowserRouter>
-          <section style={{ backgroundColor: '#0d1b2a', minHeight: '100vh' }}>
+          <section style={{ backgroundColor: '#212529', minHeight: '100vh' }}>
             <Navbar />
             <Routes>
               <Route path='/' exact element={<Feed />} />

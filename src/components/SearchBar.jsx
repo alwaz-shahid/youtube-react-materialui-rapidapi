@@ -2,7 +2,7 @@ import { IconButton, Paper, Popover, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import SearchIcon from '@mui/icons-material/Search';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useMyContext } from '../store/context';
 
 export default function SearchBar() {
@@ -11,7 +11,7 @@ export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('');
   const { setLocalData, getLocalData } = useMyContext();
   const [searchHistory, setSearchHistory] = useState([]);
-
+  const searchInputRef = useRef(null);
   useEffect(() => {
     const history = getLocalData('searchHistory') || [];
     setSearchHistory(history.slice(-5)); // Display the latest 5 search terms
@@ -19,6 +19,7 @@ export default function SearchBar() {
 
   const handleSearchToggle = () => {
     setShowSearchField(!showSearchField);
+    setAnchorEl(showSearchField ? null : searchInputRef.current);
   };
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -78,6 +79,7 @@ export default function SearchBar() {
         </IconButton>
 
         <input
+          ref={searchInputRef}
           className='search-bar'
           placeholder='Search...'
           value={searchTerm}

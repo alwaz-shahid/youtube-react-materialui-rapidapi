@@ -68,21 +68,22 @@ const VideoDetail = () => {
   } = videoDetail;
 
   const handleLikedToggle = () => {
-    setCont((prevState) => ({
-      ...prevState,
-      liked: !prevState.liked, // Toggle the liked state
-    }));
+    // setCont((prevState) => ({
+    //   ...prevState,
+    //   liked: !prevState.liked, // Toggle the liked state
+    // }));
 
     // Retrieve the current liked songs data from local storage
-    const currentLikedSongs = getLocalData('likedSongs');
+    // const currentLikedSongs = getLocalData('likedSongs');
 
-    // Create a new array with the current liked songs and the new song
-    const updatedLikedSongs = currentLikedSongs
-      ? [...currentLikedSongs, { id, title }]
-      : [{ id, title }];
+    // // Create a new array with the current liked songs and the new song
+    // const updatedLikedSongs = currentLikedSongs
+    //   ? [...currentLikedSongs, { id, title }]
+    //   : [{ id, title }];
 
-    // Save the updated liked songs data back to local storage
-    setLocalData('likedSongs', updatedLikedSongs);
+    // // Save the updated liked songs data back to local storage
+    // setLocalData('likedSongs', updatedLikedSongs);
+    console.log('liked')
   };
 
   const handleLoopToggle = () => {

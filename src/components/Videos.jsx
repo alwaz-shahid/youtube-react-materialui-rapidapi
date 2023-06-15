@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Stack, Box, Button } from '@mui/material';
 
 import { ChannelCard, Loader, VideoCard } from './';
-import { useMyContext } from '../store/context';
+// import { useMyContext } from '../store/context';
 import { useEffect } from 'react';
 
 const Videos = ({ videos, direction }) => {
   const [showMore, setShowMore] = useState(false);
 
-  const { state } = useMyContext();
+  // const { state } = useMyContext();
   useEffect(() => {
     // alert(JSON.stringify(state));
   }, []);
@@ -20,12 +20,12 @@ const Videos = ({ videos, direction }) => {
       {item.id.channelId && <ChannelCard channelDetail={item} />}
     </Box>
   ));
-  const moreList = state?.videos?.map((item, idx) => (
-    <Box key={idx}>
-      {item.id.videoId && <VideoCard video={item} />}
-      {item.id.channelId && <ChannelCard channelDetail={item} />}
-    </Box>
-  ));
+  // const moreList = state?.videos?.map((item, idx) => (
+  //   <Box key={idx}>
+  //     {item.id.videoId && <VideoCard video={item} />}
+  //     {item.id.channelId && <ChannelCard channelDetail={item} />}
+  //   </Box>
+  // ));
 
   return (
     <Stack
@@ -46,7 +46,7 @@ const Videos = ({ videos, direction }) => {
           See more!
         </Button>
       )}
-      {showMore && moreList}
+      {/* {showMore && moreList} */}
     </Stack>
   );
 };

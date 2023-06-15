@@ -9,13 +9,12 @@ export default function SearchBar() {
   const navigate = useNavigate();
   const [showSearchField, setShowSearchField] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const { setLocalData, getLocalData } = useMyContext();
-  const [searchHistory, setSearchHistory] = useState([]);
+  const { setValue, state } = useMyContext();
   const searchInputRef = useRef(null);
-  useEffect(() => {
-    const history = getLocalData('searchHistory') || [];
-    setSearchHistory(history.slice(-5)); // Display the latest 5 search terms
-  }, [getLocalData]);
+  // useEffect(() => {
+  //   const history = getLocalData('searchHistory') || [];
+  //   setSearchHistory(history.slice(-5)); // Display the latest 5 search terms
+  // }, [getLocalData]);
 
   const handleSearchToggle = () => {
     setShowSearchField(!showSearchField);
@@ -26,13 +25,28 @@ export default function SearchBar() {
     if (searchTerm.trim() === '') {
       return; // Ignore empty search terms
     }
+    if (window.location.href.includes('FocusPlayer')) {
+      // Perform search logic here
+      // const updatedHistory = [
+      //   searchTerm,
+      //   ...searchHistory.filter((term) => term !== searchTerm),
+      // ];
+      // setLocalData('searchHistory', updatedHistory);
+      setValue('video', {
+        searchTerm,
+      });
+      // alert(JSON.stringify(state));
+    } else {
+      // Navigate to a different route if "xyz" is not in the URL
+      navigate(`/search/${searchTerm}`);
+    }
     // Perform search logic here
-    const updatedHistory = [
-      searchTerm,
-      ...searchHistory.filter((term) => term !== searchTerm),
-    ];
-    setLocalData('searchHistory', updatedHistory);
-    navigate(`/search/${searchTerm}`);
+    // const updatedHistory = [
+    //   searchTerm,
+    //   ...searchHistory.filter((term) => term !== searchTerm),
+    // ];
+    // setLocalData('searchHistory', updatedHistory);
+    // navigate(`/search/${searchTerm}`);
   };
 
   const handleSearchHistoryClick = (term) => {
@@ -86,41 +100,6 @@ export default function SearchBar() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </Paper>
-
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}>
-        <div style={{ maxHeight: '200px', overflowY: 'auto', padding: '8px' }}>
-          {searchHistory.map((term, index) => (
-            <Typography
-              key={index}
-              variant='body2'
-              onClick={() => handleSearchHistoryClick(term)}
-              style={{ cursor: 'pointer', marginBottom: '4px' }}>
-              {term}
-            </Typography>
-          ))}
-
-          {searchHistory.length > 5 && (
-            <Typography
-              variant='body2'
-              onClick={() => console.log('Show more clicked')}
-              style={{ cursor: 'pointer', marginBottom: '4px' }}>
-              Show More
-            </Typography>
-          )}
-        </div>
-      </Popover>
     </div>
   );
 }

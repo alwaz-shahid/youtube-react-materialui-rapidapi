@@ -5,16 +5,18 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useNavigate } from 'react-router-dom';
 function Appmenu() {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    Navigate;
   };
 
   return (
@@ -42,9 +44,29 @@ function Appmenu() {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate('FocusPlayer');
+            handleClose;
+          }}>
+          FocusPlayer
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate('update-news');
+            handleClose;
+          }}>
+          {`    What's New`}
+        </MenuItem>
+        <MenuItem disabled onClick={handleClose}>
+          Profile
+        </MenuItem>
+        <MenuItem disabled onClick={handleClose}>
+          My account
+        </MenuItem>
+        <MenuItem disabled onClick={handleClose}>
+          Logout
+        </MenuItem>
       </Menu>
     </div>
   );

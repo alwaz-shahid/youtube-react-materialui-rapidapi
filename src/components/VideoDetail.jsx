@@ -9,45 +9,25 @@ import { fetchFromAPI } from '../utils/fetchFromAPI';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import Favorite from '@mui/icons-material/Favorite';
-import { useMyContext } from '../store/context';
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
   const [cont, setCont] = useState({ loop: false, liked: false });
-  const { setLocalData, getLocalData } = useMyContext();
 
-  const Toolbar = () => (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-      }}
-      px={2}>
-      <IconButton
-        type='button'
-        sx={{ p: '5px', color: cont.liked ? '#0466c8' : '#fff' }}
-        aria-label='like song'
-        onClick={handleLikedToggle}>
-        <ThumbUpAltIcon />
-      </IconButton>
+  const handleLoopToggle = () => {
+    setCont((prevState) => ({
+      ...prevState,
+      loop: !prevState.loop, // Toggle the loop state
+    }));
+  };
 
-      <IconButton
-        type='button'
-        sx={{ p: '5px', color: cont.loop ? '#0466c8' : '#fff' }}
-        aria-label='repeat song'
-        onClick={handleLoopToggle}>
-        <RepeatIcon />
-      </IconButton>
-      <IconButton
-        type='button'
-        sx={{ p: '5px', color: cont.loop ? '#fff' : '#e71d36' }}
-        aria-label='repeat song'>
-        <Favorite />
-      </IconButton>
-    </Box>
-  );
+  const handleLikedToggle = () => {
+    setCont((prevState) => ({
+      ...prevState,
+      liked: !prevState.liked, // Toggle the liked state
+    }));
+  };
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -67,31 +47,6 @@ const VideoDetail = () => {
     statistics: { viewCount, likeCount },
   } = videoDetail;
 
-  const handleLikedToggle = () => {
-    // setCont((prevState) => ({
-    //   ...prevState,
-    //   liked: !prevState.liked, // Toggle the liked state
-    // }));
-
-    // Retrieve the current liked songs data from local storage
-    // const currentLikedSongs = getLocalData('likedSongs');
-
-    // // Create a new array with the current liked songs and the new song
-    // const updatedLikedSongs = currentLikedSongs
-    //   ? [...currentLikedSongs, { id, title }]
-    //   : [{ id, title }];
-
-    // // Save the updated liked songs data back to local storage
-    // setLocalData('likedSongs', updatedLikedSongs);
-    console.log('liked')
-  };
-
-  const handleLoopToggle = () => {
-    setCont((prevState) => ({
-      ...prevState,
-      loop: !prevState.loop, // Toggle the loop state
-    }));
-  };
   return (
     <Box minHeight='95vh'>
       <Stack direction={{ xs: 'column', md: 'column' }} boxShadow={2}>
@@ -135,7 +90,36 @@ const VideoDetail = () => {
                 </Typography>
               </Stack>
             </Stack>
-            <Toolbar />
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-evenly',
+              }}
+              px={2}>
+              <IconButton
+                type='button'
+                sx={{ p: '5px', color: cont.liked ? '#0466c8' : '#fff' }}
+                aria-label='like song'
+                onClick={handleLikedToggle}>
+                <ThumbUpAltIcon />
+              </IconButton>
+
+              <IconButton
+                type='button'
+                sx={{ p: '5px', color: cont.loop ? '#0466c8' : '#fff' }}
+                aria-label='repeat song'
+                onClick={handleLoopToggle}>
+                <RepeatIcon />
+              </IconButton>
+              <IconButton
+                type='button'
+                sx={{ p: '5px', color: cont.loop ? '#fff' : '#e71d36' }}
+                aria-label='repeat song'>
+                <Favorite />
+              </IconButton>
+            </Box>
           </Box>
         </Box>
         <Divider />

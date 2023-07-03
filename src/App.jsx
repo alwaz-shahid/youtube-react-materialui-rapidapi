@@ -8,8 +8,6 @@ import {
   VideoDetail,
 } from './components';
 import { MyContextProvider } from './store/context';
-import FocusPlayer from './components/FocusPlayer';
-import Updates from './components/Updates';
 
 function App() {
   return (
@@ -23,8 +21,6 @@ function App() {
               <Route path='/video/:id' element={<VideoDetail />} />
               <Route path='/channel/:id' element={<ChannelDetail />} />
               <Route path='/search/:searchTerm' element={<SearchFeed />} />
-              <Route path='/FocusPlayer' element={<FocusPlayer />} />
-              <Route path='/update-news' element={<Updates />} />
             </Routes>
           </section>
         </BrowserRouter>

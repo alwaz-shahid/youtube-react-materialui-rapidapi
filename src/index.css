@@ -116,3 +116,8 @@ a {
   font-family: 'Roboto', sans-serif;
   /* text-align: center; */
 }
+ul {
+  list-style-type: none;
+  margin: 2px;
+  padding: 2px;
+}

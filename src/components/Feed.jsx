@@ -17,7 +17,7 @@ const Feed = () => {
       setValue('videos', [...videos, ...newVideos]);
     });
   }, [selectedCategory]);
-  console.log(state);
+  // console.log(state);
 
   return (
     <Stack sx={{ flexDirection: { sx: 'column', md: 'row' } }}>

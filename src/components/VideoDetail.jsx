@@ -9,44 +9,95 @@ import { fetchFromAPI } from '../utils/fetchFromAPI';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import Favorite from '@mui/icons-material/Favorite';
-
+import { addDataToLike, removeDataFromLike } from '../utils/db';
+import PictureInPictureIcon from '@mui/icons-material/PictureInPicture';
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
-  const [cont, setCont] = useState({ loop: false, liked: false });
+  const [cont, setCont] = useState({ loop: false, liked: false, pip: false });
+  const [dataLoaded, setDataLoaded] = useState(false); // Add this state variable
 
-  const handleLoopToggle = () => {
-    setCont((prevState) => ({
-      ...prevState,
-      loop: !prevState.loop, // Toggle the loop state
-    }));
-  };
-
-  const handleLikedToggle = () => {
-    setCont((prevState) => ({
-      ...prevState,
-      liked: !prevState.liked, // Toggle the liked state
-    }));
+  const handleLoopToggle = (p) => {
+    if (p == 'loop') {
+      setCont((prevState) => ({
+        ...prevState,
+        loop: !prevState.loop, // Toggle the loop state
+      }));
+    }
+    if (p == 'pip') {
+      setCont((prevState) => ({
+        ...prevState,
+        pip: !prevState.pip, // Toggle the loop state
+      }));
+    }
   };
 
   const { id } = useParams();
 
+  // useEffect(() => {
+  //   fetchFromAPI(`videos?part=snippet,statistics&id=${id}`).then((data) => {
+  //     setVideoDetail(data.items[0]);
+  //   });
+
+  //   fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`).then(
+  //     (data) => {
+  //       setVideos(data.items);
+  //     }
+  //   );
+  // }, [id]);
   useEffect(() => {
-    fetchFromAPI(`videos?part=snippet,statistics&id=${id}`).then((data) =>
-      setVideoDetail(data.items[0])
-    );
+    const fetchData = async () => {
+      try {
+        const videoData = await fetchFromAPI(
+          `videos?part=snippet,statistics&id=${id}`
+        );
+        setVideoDetail(videoData.items[0]);
 
-    fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`).then(
-      (data) => setVideos(data.items)
-    );
+        const relatedVideosData = await fetchFromAPI(
+          `search?part=snippet&relatedToVideoId=${id}&type=video`
+        );
+        setVideos(relatedVideosData.items);
+
+        setDataLoaded(true); // Set the state to indicate that data has been fetched
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
   }, [id]);
-
-  if (!videoDetail?.snippet) return <Loader />;
+  // if (!videoDetail?.snippet) return <Loader />;
+  if (!dataLoaded || !videoDetail?.snippet) {
+    return <Loader />;
+  }
 
   const {
     snippet: { title, channelId, channelTitle },
     statistics: { viewCount, likeCount },
   } = videoDetail;
+
+  const handleLikedToggle = async () => {
+    setCont((prevState) => ({
+      ...prevState,
+      liked: !prevState.liked, // Toggle the liked state
+    }));
+
+    // Add or remove the like in the IndexedDB based on the current liked state
+    const { liked } = cont;
+    const data = { id: videoDetail.id, snippet: videoDetail.snippet };
+
+    try {
+      if (!liked) {
+        // If not liked (false), add the like to the database using addDataToLike function
+        await addDataToLike(data);
+      } else {
+        // If already liked (true), remove the like from the database using removeDataFromLike function
+        await removeDataFromLike(videoDetail.id);
+      }
+    } catch (error) {
+      console.error('Error handling liked toggle:', error);
+    }
+  };
 
   return (
     <Box minHeight='95vh'>
@@ -58,7 +109,7 @@ const VideoDetail = () => {
               className='react-player'
               controls
               playing
-              pip
+              pip={cont?.pip}
               loop={cont?.loop}
             />
             <Typography color='#fff' variant='h5' fontWeight='bold' p={2}>
@@ -111,14 +162,15 @@ const VideoDetail = () => {
                 type='button'
                 sx={{ p: '5px', color: cont.loop ? '#0466c8' : '#fff' }}
                 aria-label='repeat song'
-                onClick={handleLoopToggle}>
+                onClick={() => handleLoopToggle('loop')}>
                 <RepeatIcon />
               </IconButton>
               <IconButton
+                onClick={() => handleLoopToggle('pip')}
                 type='button'
-                sx={{ p: '5px', color: cont.loop ? '#fff' : '#e71d36' }}
+                sx={{ p: '5px', color: cont.pip ? '#fff' : '#e71d36' }}
                 aria-label='repeat song'>
-                <Favorite />
+                <PictureInPictureIcon />
               </IconButton>
             </Box>
           </Box>

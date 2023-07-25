@@ -8,6 +8,8 @@ import {
   VideoDetail,
 } from './components';
 import { MyContextProvider } from './store/context';
+import AboutPage from './components/updates/AboutPage';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -18,10 +20,12 @@ function App() {
             <Navbar />
             <Routes>
               <Route path='/' exact element={<Feed />} />
+              <Route path='/about' exact element={<AboutPage />} />
               <Route path='/video/:id' element={<VideoDetail />} />
               <Route path='/channel/:id' element={<ChannelDetail />} />
               <Route path='/search/:searchTerm' element={<SearchFeed />} />
             </Routes>
+            <Footer />
           </section>
         </BrowserRouter>
       </div>

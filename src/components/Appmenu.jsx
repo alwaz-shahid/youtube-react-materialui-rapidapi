@@ -1,20 +1,21 @@
 import React from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
-
+import { useNavigate } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 function Appmenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (param) => {
     setAnchorEl(null);
+    navigate(param);
   };
 
   return (
@@ -42,9 +43,25 @@ function Appmenu() {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem>
+          <a href='https://www.linkedin.com/in/alwaz-shahid'>
+            Contact Developer
+          </a>
+        </MenuItem>
+        <MenuItem>
+          <a href='https://github.com/alwaz-shahid'>Developer's Work</a>
+        </MenuItem>
+
+        <MenuItem disabled onClick={handleClose}>
+          Profile
+        </MenuItem>
+        <MenuItem disabled onClick={handleClose}>
+          My account
+        </MenuItem>
+        <MenuItem onClick={() => handleClose('/about')}>About</MenuItem>
+        <MenuItem disabled onClick={handleClose}>
+          Logout
+        </MenuItem>
       </Menu>
     </div>
   );

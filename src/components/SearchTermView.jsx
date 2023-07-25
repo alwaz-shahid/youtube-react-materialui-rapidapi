@@ -32,8 +32,9 @@ const SearchTermView = () => {
         background: 'rgba(255, 255, 255, 0.9)',
         minWidth: '100%',
         borderRadius: '8px',
+        zIndex: 2,
       }}>
-      <div style={{ paddingLeft: '2px', fontSize: '25px' }}>
+      <div style={{ paddingLeft: '2px', fontSize: '20px', fontWeight: 'bold' }}>
         <p>Search Terms</p>
         <ul>
           {searchTerms.map((term) => (

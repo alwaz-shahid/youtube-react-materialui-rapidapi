@@ -36,7 +36,10 @@ const Feed = () => {
           className='copyright'
           variant='body2'
           sx={{ mt: 3, color: '#fff' }}>
-          Copyright © 2022 Alwaz Shahid
+          Copyright © 2022{' '}
+          <a href='https://github.com/alwaz-shahid' target='_blank'>
+            Alwaz Shahid
+          </a>
         </Typography>
       </Box>
 

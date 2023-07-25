@@ -9,6 +9,7 @@ import { fetchFromAPI } from '../utils/fetchFromAPI';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import Favorite from '@mui/icons-material/Favorite';
+
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);

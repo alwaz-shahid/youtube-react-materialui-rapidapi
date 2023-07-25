@@ -10,7 +10,8 @@ body {
 
 a {
   text-decoration: none;
-  color: black;
+  color: inherit;
+  font-weight: bold;
 }
 
 /* ::-webkit-scrollbar {
@@ -52,6 +53,7 @@ a {
 .react-player {
   height: 77vh !important;
   width: 100% !important;
+  z-index: 1 !important;
 }
 
 .search-bar {
@@ -120,4 +122,74 @@ ul {
   list-style-type: none;
   margin: 2px;
   padding: 2px;
+}
+
+/* .about-page {
+  font-size: 35px;
+}
+.about-page h1 {
+  color: blue;
+}
+.about-page h2 {
+  color: rgb(246, 255, 0);
+}
+.about-page p {
+  color: #fff;
+} */
+
+/* AboutPage.css */
+.about-page p {
+  color: #fff;
+}
+.about-page h2 {
+  color: #e0d612;
+}
+.about-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  /* background-color: #f0f0f0; */
+  border-radius: 10px;
+  font-size: 35px;
+}
+
+.about-title {
+  text-align: center;
+  font-size: 38px;
+  color: #3939da;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 24px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.whats-new ul,
+.upcoming ul {
+  list-style-type: none;
+  padding: 0;
+  color: #fff;
+}
+
+.whats-new li,
+.upcoming li {
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  /* background-color: #ccc; */
+  margin: 20px 0;
+}
+
+/* Optional: Add more styling to enhance the appearance */
+.whats-new li:before,
+.upcoming li:before {
+  content: '✨';
+  margin-right: 5px;
 }

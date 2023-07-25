@@ -36,6 +36,7 @@ const Navbar = () => {
         background: '#212529',
         top: 0,
         justifyContent: 'space-between',
+        zIndex: 3,
       }}
       boxShadow={2}>
       <Link to='/' style={{ display: 'flex', alignItems: 'center' }}>

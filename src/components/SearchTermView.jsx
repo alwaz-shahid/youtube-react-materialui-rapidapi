@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { getAllDataFromSearchBar } from '../utils/db/localDb';
+import { getAllDataFromSearchBar } from '../utils/db';
 import { useNavigate } from 'react-router-dom';
 
 const SearchTermView = () => {

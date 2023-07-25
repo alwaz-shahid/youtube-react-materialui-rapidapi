@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { addDataToSearchBar } from '../utils/db/localDb';
+import { addDataToSearchBar } from '../utils/db';
 import SearchTermView from './SearchTermView';
 
 export default function SearchBar() {

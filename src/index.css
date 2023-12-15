@@ -100,7 +100,7 @@ a {
     height: 45vh !important;
   }
   .search-bar {
-    width: 200px;
+    width: 100px;
   }
 }
 .home {
@@ -192,4 +192,9 @@ ul {
 .upcoming li:before {
   content: '✨';
   margin-right: 5px;
+}
+
+.ovfy{
+  overflow-y: scroll !important;
+  max-height: 400px;
 }

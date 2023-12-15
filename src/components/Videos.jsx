@@ -11,11 +11,13 @@ const Videos = ({ videos, direction }) => {
   const { state } = useMyContext();
   useEffect(() => {
     // alert(JSON.stringify(state));
+    // console.log(videos)
   }, []);
   if (!videos?.length) return <Loader />;
 
   const videosList = videos?.map((item, idx) => (
     <Box key={idx}>
+
       {item.id.videoId && <VideoCard video={item} />}
       {item.id.channelId && <ChannelCard channelDetail={item} />}
     </Box>

@@ -10,7 +10,8 @@ const SearchTermView = () => {
     // Fetch search term data from the offline database and update the state
     const fetchSearchTerms = async () => {
       const allSearchTerms = await getAllDataFromSearchBar();
-      setSearchTerms(allSearchTerms);
+      setSearchTerms(allSearchTerms.reverse());
+      // console.log(allSearchTerms)
     };
     fetchSearchTerms();
   }, []);
@@ -34,9 +35,9 @@ const SearchTermView = () => {
         borderRadius: '8px',
         zIndex: 2,
       }}>
-      <div style={{ paddingLeft: '2px', fontSize: '20px', fontWeight: 'bold' }}>
+      <div style={{ paddingLeft: '2px', fontSize: '20px', fontWeight: 'bold',overflowY:"scroll" }}>
         <p>Search Terms</p>
-        <ul>
+        <ul className='ovfy'>
           {searchTerms.map((term) => (
             <li
               key={term.id}
@@ -48,6 +49,7 @@ const SearchTermView = () => {
                 padding: '3px',
                 fontSize: '20px',
                 display: 'block',
+
               }}>
               {term.term}
             </li>

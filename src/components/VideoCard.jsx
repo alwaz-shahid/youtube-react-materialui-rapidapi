@@ -29,7 +29,7 @@ const VideoCard = ({
     }}>
     <Link to={videoId ? `/video/${videoId}` : `/video/cV2gBU6hKfY`}>
       <CardMedia
-        image={snippet?.thumbnails?.high?.url || demoThumbnailUrl}
+        image={snippet?.thumbnails?.medium?.url || demoThumbnailUrl}
         alt={snippet?.title}
         sx={{ width: { xs: '100%', sm: '358px' }, height: 150 }}
       />

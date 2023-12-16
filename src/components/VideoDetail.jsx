@@ -4,61 +4,39 @@ import ReactPlayer from 'react-player';
 import { Typography, Box, Stack, IconButton } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Divider from '@mui/material/Divider';
-import { Videos, Loader } from './';
-import { fetchFromAPI } from '../utils/fetchFromAPI';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import RepeatIcon from '@mui/icons-material/Repeat';
-import Favorite from '@mui/icons-material/Favorite';
-import { addDataToLike, removeDataFromLike } from '../utils/db';
 import PictureInPictureIcon from '@mui/icons-material/PictureInPicture';
+
+import { Videos, Loader } from './';
+import { fetchFromAPI } from '../utils/fetchFromAPI';
+import { addDataToLike, removeDataFromLike } from '../utils/db';
+
 const VideoDetail = () => {
+  const { id } = useParams();
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
   const [cont, setCont] = useState({ loop: false, liked: false, pip: false });
-  const [dataLoaded, setDataLoaded] = useState(false); // Add this state variable
+  const [dataLoaded, setDataLoaded] = useState(false);
 
-  const handleLoopToggle = (p) => {
-    if (p == 'loop') {
-      setCont((prevState) => ({
-        ...prevState,
-        loop: !prevState.loop, // Toggle the loop state
-      }));
-    }
-    if (p == 'pip') {
-      setCont((prevState) => ({
-        ...prevState,
-        pip: !prevState.pip, // Toggle the loop state
-      }));
-    }
+  const handleLoopToggle = (property) => {
+    setCont((prevState) => ({
+      ...prevState,
+      [property]: !prevState[property], // Toggle the specified state property
+    }));
   };
 
-  const { id } = useParams();
-
-  // useEffect(() => {
-  //   fetchFromAPI(`videos?part=snippet,statistics&id=${id}`).then((data) => {
-  //     setVideoDetail(data.items[0]);
-  //   });
-
-  //   fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`).then(
-  //     (data) => {
-  //       setVideos(data.items);
-  //     }
-  //   );
-  // }, [id]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const videoData = await fetchFromAPI(
-          `videos?part=snippet,statistics&id=${id}`
-        );
+        const [videoData, relatedVideosData] = await Promise.all([
+          fetchFromAPI(`videos?part=snippet,statistics&id=${id}`),
+          fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`),
+        ]);
+
         setVideoDetail(videoData.items[0]);
-
-        const relatedVideosData = await fetchFromAPI(
-          `search?part=snippet&relatedToVideoId=${id}&type=video`
-        );
         setVideos(relatedVideosData.items);
-
-        setDataLoaded(true); // Set the state to indicate that data has been fetched
+        setDataLoaded(true);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -66,7 +44,52 @@ const VideoDetail = () => {
 
     fetchData();
   }, [id]);
-  // if (!videoDetail?.snippet) return <Loader />;
+
+  useEffect(() => {
+    const handleMediaSession = () => {
+      if (navigator.mediaSession && videoDetail?.snippet) {
+        const { title, channelTitle } = videoDetail.snippet;
+        navigator.mediaSession.metadata = new window.MediaMetadata({
+          title: title || 'Video Title',
+          artist: channelTitle || 'Channel Title',
+          artwork: [
+            { src: 'path-to-thumbnail', sizes: '96x96', type: 'image/png' },
+          ],
+        });
+
+        navigator.mediaSession.setActionHandler('play', () => {
+          // Handle play action
+        });
+
+        navigator.mediaSession.setActionHandler('pause', () => {
+          // Handle pause action
+        });
+      }
+    };
+
+    handleMediaSession();
+  }, [videoDetail]);
+
+  const handleLikedToggle = async () => {
+    setCont((prevState) => ({
+      ...prevState,
+      liked: !prevState.liked,
+    }));
+
+    const { liked } = cont;
+    const data = { id: videoDetail.id, snippet: videoDetail.snippet };
+
+    try {
+      if (!liked) {
+        await addDataToLike(data);
+      } else {
+        await removeDataFromLike(videoDetail.id);
+      }
+    } catch (error) {
+      console.error('Error handling liked toggle:', error);
+    }
+  };
+
   if (!dataLoaded || !videoDetail?.snippet) {
     return <Loader />;
   }
@@ -76,41 +99,18 @@ const VideoDetail = () => {
     statistics: { viewCount, likeCount },
   } = videoDetail;
 
-  const handleLikedToggle = async () => {
-    setCont((prevState) => ({
-      ...prevState,
-      liked: !prevState.liked, // Toggle the liked state
-    }));
-
-    // Add or remove the like in the IndexedDB based on the current liked state
-    const { liked } = cont;
-    const data = { id: videoDetail.id, snippet: videoDetail.snippet };
-
-    try {
-      if (!liked) {
-        // If not liked (false), add the like to the database using addDataToLike function
-        await addDataToLike(data);
-      } else {
-        // If already liked (true), remove the like from the database using removeDataFromLike function
-        await removeDataFromLike(videoDetail.id);
-      }
-    } catch (error) {
-      console.error('Error handling liked toggle:', error);
-    }
-  };
-
   return (
     <Box minHeight='95vh'>
       <Stack direction={{ xs: 'column', md: 'column' }} boxShadow={2}>
-        <Box flex={1} position={'relative'}>
+        <Box flex={1} position='relative'>
           <Box sx={{ width: '100%', position: 'sticky', top: '86px' }}>
             <ReactPlayer
               url={`https://www.youtube.com/watch?v=${id}`}
               className='react-player'
               controls
               playing
-              pip={cont?.pip}
-              loop={cont?.loop}
+              pip={cont.pip}
+              loop={cont.loop}
             />
             <Typography color='#fff' variant='h5' fontWeight='bold' p={2}>
               {title}
@@ -125,24 +125,13 @@ const VideoDetail = () => {
                 <Typography
                   sx={{
                     variant: { sm: 'subtitle1', md: 'h6' },
-                    color: '#fff'
+                    color: '#fff',
                   }}
                 >
                   {channelTitle}
                   <CheckCircleIcon sx={{ fontSize: '12px', color: 'gray', ml: '5px' }} />
                 </Typography>
-
-                {/* <Typography
-                  variant={{ sm: 'subtitle1', md: 'h6' }}
-                  pr={{ sm: 1, md: 3 }}
-                  color='#fff'>
-                  {channelTitle}
-                  <CheckCircleIcon
-                    sx={{ fontSize: '12px', color: 'gray', ml: '5px' }}
-                  />
-                </Typography> */}
               </Link>
-
               <Stack direction='row' gap='20px' alignItems='center'>
                 <Typography variant='body1' sx={{ opacity: 0.7 }}>
                   {parseInt(viewCount).toLocaleString()} views
@@ -167,7 +156,6 @@ const VideoDetail = () => {
                 onClick={handleLikedToggle}>
                 <ThumbUpAltIcon />
               </IconButton>
-
               <IconButton
                 type='button'
                 sx={{ p: '5px', color: cont.loop ? '#0466c8' : '#fff' }}

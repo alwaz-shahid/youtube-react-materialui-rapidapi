@@ -43,7 +43,7 @@ function Appmenu() {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}>
-        <MenuItem disabled onClick={handleClose}>
+        <MenuItem onClick={() => handleClose('/liked')}>
           Liked Videos
         </MenuItem>
         <MenuItem>

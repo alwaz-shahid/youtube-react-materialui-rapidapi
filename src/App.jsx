@@ -10,6 +10,7 @@ import {
 import { MyContextProvider } from './store/context';
 import AboutPage from './components/updates/AboutPage';
 import Footer from './components/Footer';
+import LikedVideos from './components/LikedVideos';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path='/video/:id' element={<VideoDetail />} />
               <Route path='/channel/:id' element={<ChannelDetail />} />
               <Route path='/search/:searchTerm' element={<SearchFeed />} />
+              <Route path='/liked' exact element={<LikedVideos />} />
             </Routes>
             <Footer />
           </section>

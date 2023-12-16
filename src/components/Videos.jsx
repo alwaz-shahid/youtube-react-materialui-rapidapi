@@ -37,6 +37,7 @@ const Videos = ({ videos, direction }) => {
       alignItems='start'
       gap={2}>
       {videosList}
+      {showMore && moreList}
       {state?.videos && (
         <Button
           onClick={() => setShowMore(!showMore)}
@@ -48,7 +49,6 @@ const Videos = ({ videos, direction }) => {
           See more!
         </Button>
       )}
-      {showMore && moreList}
     </Stack>
   );
 };

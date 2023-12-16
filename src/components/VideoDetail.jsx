@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { Typography, Box, Stack, IconButton } from '@mui/material';
@@ -10,7 +10,7 @@ import PictureInPictureIcon from '@mui/icons-material/PictureInPicture';
 
 import { Videos, Loader } from './';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
-import { addDataToLike, removeDataFromLike } from '../utils/db';
+import { addDataToLike, removeDataFromLike, getAllDataFromLike } from '../utils/db';
 
 const VideoDetail = () => {
   const { id } = useParams();
@@ -26,9 +26,24 @@ const VideoDetail = () => {
     }));
   };
 
+  const fetchLikedVideos = useCallback(async () => {
+    try {
+      const likedVideos = await getAllDataFromLike();
+      const isLiked = likedVideos.some((video) => video.id === id);
+      setCont((prevState) => ({
+        ...prevState,
+        liked: isLiked,
+      }));
+    } catch (error) {
+      console.error('Error fetching liked videos:', error);
+    }
+  }, [id]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        fetchLikedVideos();
+
         const [videoData, relatedVideosData] = await Promise.all([
           fetchFromAPI(`videos?part=snippet,statistics&id=${id}`),
           fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`),
@@ -43,7 +58,7 @@ const VideoDetail = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [id, fetchLikedVideos]);
 
   useEffect(() => {
     const handleMediaSession = () => {

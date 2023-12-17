@@ -13,14 +13,14 @@ export default defineConfig({
         theme_color: '#212529',
         icons: [
           {
-            src: '/vio.svg',
+            src: '/logow.svg',
             // src: '/vite.svg',
             sizes: '72x72',
             type: 'image/png',
             purpose: 'any maskable',
           },
           {
-            src: '/vio.svg',
+            src: '/logow.svg',
             // src: '/vite.svg',
             sizes: '512x512',
             type: 'image/png',

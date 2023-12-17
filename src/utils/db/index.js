@@ -79,6 +79,13 @@ export async function getAllDataFromLike() {
   const store = tx.objectStore(LIKE_STORE);
   return store.getAll();
 }
+export async function deleteAllDataFromLike() {
+  const db = await dbPromise;
+  const tx = db.transaction(LIKE_STORE, 'readwrite');
+  const store = tx.objectStore(LIKE_STORE);
+  await store.clear(); // Clear all data from the store
+  return tx.complete;
+}
 
 export async function removeDataFromLike(videoId) {
   const db = await dbPromise;

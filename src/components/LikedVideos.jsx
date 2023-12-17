@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Box, Typography, Divider, Stack } from '@mui/material';
+import { Box, Typography, Divider, Stack, Button } from '@mui/material';
 
-import { Videos, Loader, VideoCard } from './'; // Assuming you have Videos and Loader components
-import { getAllDataFromLike } from '../utils/db';
+import {  Loader, VideoCard } from './'; // Assuming you have Videos and Loader components
+import { getAllDataFromLike, deleteAllDataFromLike } from '../utils/db';
 
 const LikedVideos = () => {
     const [likedVideos, setLikedVideos] = useState(null);
@@ -23,6 +22,15 @@ const LikedVideos = () => {
         fetchLikedVideos();
     }, []);
 
+    const handleClearLikedVideos = async () => {
+        try {
+            await deleteAllDataFromLike();
+            setLikedVideos([]);
+        } catch (error) {
+            console.error('Error clearing liked videos:', error);
+        }
+    };
+
     if (!dataLoaded) {
         return <Loader />;
     }
@@ -33,23 +41,24 @@ const LikedVideos = () => {
                 <Typography variant='h6' py={2} sx={{ opacity: 0.7 }} color='#fff'>
                     Liked Videos
                 </Typography>
-                {/* {JSON.stringify(likedVideos)} */}
                 <Stack
                     direction={'row'}
                     flexWrap='wrap'
                     justifyContent='space-evenly'
                     alignItems='start'
                     gap={2}>
-
-                    {likedVideos && likedVideos.length > 0 ? 
-                        likedVideos.map((item, id) => <VideoCard video={item} key={id} />) 
-
-                     : (
+                        {/* {JSON.stringify(likedVideos[0].id)} */}
+                    {likedVideos && likedVideos.length > 0 ? (
+                    likedVideos.map((item, id) => <VideoCard video={item} vid={item.id} key={id} />)
+                    ) : (
                         <Typography variant='body1' sx={{ opacity: 0.7 }} color='#fff'>
                             You haven't liked any videos yet.
                         </Typography>
                     )}
                 </Stack>
+                <Button onClick={handleClearLikedVideos} variant="contained" color="error">
+                    Clear Liked Videos
+                </Button>
             </Box>
             <Divider />
         </Box>
@@ -57,3 +66,5 @@ const LikedVideos = () => {
 };
 
 export default LikedVideos;
+
+

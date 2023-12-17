@@ -28,37 +28,37 @@ const VideoDetail = () => {
 
   const fetchLikedVideos = useCallback(async () => {
     try {
-      const likedVideos = await getAllDataFromLike();
-      const isLiked = likedVideos.some((video) => video.id === id);
-      setCont((prevState) => ({
-        ...prevState,
-        liked: isLiked,
-      }));
+        const likedVideos = await getAllDataFromLike();
+        const isLiked = likedVideos.some((video) => video.id === id);
+        setCont((prevState) => ({
+            ...prevState,
+            liked: isLiked,
+        }));
     } catch (error) {
-      console.error('Error fetching liked videos:', error);
+        console.error('Error fetching liked videos:', error);
     }
-  }, [id]);
+}, [id]);
 
-  useEffect(() => {
+useEffect(() => {
     const fetchData = async () => {
-      try {
-        fetchLikedVideos();
+        try {
+            await fetchLikedVideos();
 
-        const [videoData, relatedVideosData] = await Promise.all([
-          fetchFromAPI(`videos?part=snippet,statistics&id=${id}`),
-          fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`),
-        ]);
+            const [videoData, relatedVideosData] = await Promise.all([
+                fetchFromAPI(`videos?part=snippet,statistics&id=${id}`),
+                fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`),
+            ]);
 
-        setVideoDetail(videoData.items[0]);
-        setVideos(relatedVideosData.items);
-        setDataLoaded(true);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+            setVideoDetail(videoData.items[0]);
+            setVideos(relatedVideosData.items);
+            setDataLoaded(true);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     };
 
     fetchData();
-  }, [id, fetchLikedVideos]);
+}, [id, fetchLikedVideos]);
 
   useEffect(() => {
     const handleMediaSession = () => {
@@ -86,17 +86,21 @@ const VideoDetail = () => {
   }, [videoDetail]);
 
   const handleLikedToggle = async () => {
+    // Use the updated state provided by the callback function in setCont
     setCont((prevState) => ({
       ...prevState,
       liked: !prevState.liked,
     }));
-
-    const { liked } = cont;
-    const data = { id: videoDetail.id, snippet: videoDetail.snippet };
-
+  
     try {
-      if (!liked) {
+      const { liked: updatedLiked } = cont; // Use the updated state
+      await console.log(updatedLiked)
+  
+      const data = { id: videoDetail.id, snippet: videoDetail.snippet };
+  
+      if (!updatedLiked) {
         await addDataToLike(data);
+
       } else {
         await removeDataFromLike(videoDetail.id);
       }
@@ -104,6 +108,7 @@ const VideoDetail = () => {
       console.error('Error handling liked toggle:', error);
     }
   };
+  
 
   if (!dataLoaded || !videoDetail?.snippet) {
     return <Loader />;

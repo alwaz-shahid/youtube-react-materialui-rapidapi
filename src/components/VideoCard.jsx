@@ -15,7 +15,7 @@ const VideoCard = ({
   video: {
     id: { videoId },
     snippet,
-  },
+  },vid
 }) => (
   <Card
     sx={{
@@ -27,7 +27,7 @@ const VideoCard = ({
         opacity: 0.72,
       },
     }}>
-    <Link to={videoId ? `/video/${videoId}` : `/video/cV2gBU6hKfY`}>
+    <Link to={videoId ? `/video/${videoId}` : `/video/${vid}`}>
       <CardMedia
         image={snippet?.thumbnails?.medium?.url || demoThumbnailUrl}
         alt={snippet?.title}

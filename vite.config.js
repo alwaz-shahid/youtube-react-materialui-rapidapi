@@ -10,16 +10,18 @@ export default defineConfig({
       manifest: {
         name: 'VIO YT Clone',
         short_name: 'VIO',
-        theme_color: '#00272B',
+        theme_color: '#212529',
         icons: [
           {
-            src: '/vite.svg',
+            src: '/vio.svg',
+            // src: '/vite.svg',
             sizes: '72x72',
             type: 'image/png',
             purpose: 'any maskable',
           },
           {
-            src: '/vite.svg',
+            src: '/vio.svg',
+            // src: '/vite.svg',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable',

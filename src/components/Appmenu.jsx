@@ -43,28 +43,28 @@ function Appmenu() {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}>
-        <MenuItem onClick={() => handleClose('/liked')}>
-          Liked Videos
-        </MenuItem>
-        <MenuItem>
-          <a href='https://www.linkedin.com/in/alwaz-shahid'>
-            Contact Developer
-          </a>
-        </MenuItem>
-        <MenuItem>
-          <a href='https://github.com/alwaz-shahid'>Developer's Work</a>
-        </MenuItem>
 
         <MenuItem disabled onClick={handleClose}>
           Profile
         </MenuItem>
-        <MenuItem disabled onClick={handleClose}>
+        {/* <MenuItem disabled onClick={handleClose}>
           My account
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={() => handleClose('/about')}>About</MenuItem>
-        <MenuItem disabled onClick={handleClose}>
+        {/* <MenuItem disabled onClick={handleClose}>
           Logout
-        </MenuItem>
+        </MenuItem> */}
+      <MenuItem onClick={() => handleClose('/liked')}>
+        Liked Videos
+      </MenuItem>
+      <MenuItem>
+        <a href='https://www.linkedin.com/in/alwaz-shahid'>
+          Contact Developer
+        </a>
+      </MenuItem>
+      <MenuItem>
+        <a href='https://github.com/alwaz-shahid'>Developer's Work</a>
+      </MenuItem>
       </Menu>
     </div>
   );

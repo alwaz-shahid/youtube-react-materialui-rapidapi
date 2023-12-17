@@ -40,7 +40,7 @@ const Navbar = () => {
       }}
       boxShadow={2}>
       <Link to='/' style={{ display: 'flex', alignItems: 'center' }}>
-        <img src={logo} alt='logo' height={35} />{' '}
+        <img src={logo} alt='logo' height={35} width={50} />{' '}
       </Link>
 
       <SearchBar />
@@ -58,12 +58,12 @@ export default Navbar;
 const AvatarIcon = () => (
   <Avatar
     sx={{
-      bgcolor: '#FF5722',
+      bgcolor: '#0092FF',
       width: 24,
       height: 24,
       padding: 0.2,
       marginLeft: 0.5,
     }}>
-    N
+    V
   </Avatar>
 );

@@ -58,7 +58,13 @@ export async function addDataToLike(data) {
 //   await store.put(data);
 //   return tx.complete;
 // }
-
+export async function clearSearchBar() {
+  const db = await dbPromise;
+  const tx = db.transaction(SEARCH_BAR_STORE, 'readwrite');
+  const store = tx.objectStore(SEARCH_BAR_STORE);
+  store.clear(); // This will remove all entries from the store
+  return tx.complete;
+}
 export async function getAllDataFromSearchBar() {
   const db = await dbPromise;
   const tx = db.transaction(SEARCH_BAR_STORE, 'readonly');
